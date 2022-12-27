@@ -16,7 +16,7 @@ def welcome():
 def prediction(variance,skewness,curtosis,entropy):  
    
     prediction = model.predict(
-        [[variance,skewness,curtosis,entropy]])
+        [['variance','skewness','curtosis','entropy']])
     print(prediction)
     return prediction
       
@@ -40,10 +40,10 @@ def main():
       
     # the following lines create text boxes in which the user can enter 
     # the data required to make the prediction
-    variance = st.text_input("Sepal Length", "Type Here")
-    skewness = st.text_input("Sepal Width", "Type Here")
-    curtosis = st.text_input("Petal Length", "Type Here")
-    entropy = st.text_input("Petal Width", "Type Here")
+    variance = st.text_input("Variance", "")
+    skewness = st.text_input("Skewness", "")
+    curtosis = st.text_input("Curtosis", "")
+    entropy = st.text_input("Entropy", "")
     result =""
       
     # the below line ensures that when the button called 'Predict' is clicked, 
@@ -51,7 +51,9 @@ def main():
     # and store it in the variable result
     if st.button("Predict"):
         result = prediction(variance,skewness,curtosis,entropy)
-    st.success('The output is {}'.format(result))
-     
+    if result == 0:
+        st.success('The Currency is Fake')
+    else:
+        st.success('The Currency is Real')
 if __name__=='__main__':
     main()
