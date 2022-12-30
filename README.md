@@ -1,4 +1,8 @@
-# FakeCurrency
+## Fake Currency Detection
 
-Detecting the Fake Currency based on 4 features -  Variance, Skewness, Curtosis, Entropy.
-Go to App.py and run the file to get the link for app.
+## Software and Tools Requirement
+
+1. [Github Account](https://github.com)
+2. [VS Code IDE](https://code.visualstudio.com)
+3. [Heroku Account](https://herou.com)
+4. [GitCLI](https://git-scm.com)
