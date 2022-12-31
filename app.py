@@ -1,10 +1,8 @@
-import pandas as pd
-import numpy as np
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
-import database as db
+#import database as db
   
 # loading in the model to predict on the data
 pickle_in = open('model.pkl', 'rb')
@@ -25,10 +23,10 @@ st.title(page_title + " " + page_icon)
 
 
 # --- DATABASE INTERFACE ---
-def get_all_periods():
-    items = db.fetch_all_periods()
-    periods = [item["key"] for item in items]
-    return periods
+#def get_all_periods():
+#    items = db.fetch_all_periods()
+#    periods = [item["key"] for item in items]
+#    return periods
 
 
 #Hide Streamlit Style
@@ -67,7 +65,7 @@ if selected == "Prediction Centre":
         "---"
         submitted = st.form_submit_button("Predict")
         if submitted:
-            db.insert_period(variance,skewness,curtosis,entropy)
+            #db.insert_period(variance,skewness,curtosis,entropy)
             result = prediction(variance,skewness,curtosis,entropy)
             if result == 0:
                 st.success('This is a Fake Currency')
@@ -75,5 +73,5 @@ if selected == "Prediction Centre":
                 st.success('This is a Real Currency')
 
 
-if selected == "Prediction Centre":
+if selected == "History":
     st.markdown("Database feature is under-development. Sorry for the inconvience.")
