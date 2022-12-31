@@ -1,8 +1,7 @@
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
-from PIL import Image
-#import database as db
+
   
 # loading in the model to predict on the data
 pickle_in = open('model.pkl', 'rb')
@@ -20,14 +19,6 @@ page_title = "Fake Currency Detection"
 layout = "centered"
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title + " " + page_icon)
-
-
-# --- DATABASE INTERFACE ---
-#def get_all_periods():
-#    items = db.fetch_all_periods()
-#    periods = [item["key"] for item in items]
-#    return periods
-
 
 #Hide Streamlit Style
 hide_st_style = """
@@ -48,30 +39,32 @@ selected = option_menu(
 
 if selected == "Prediction Centre":
     html_temp = """
-        <div style ="background-color:black;padding:13px">
+        <div style ="background-color:black;padding:10px">
         <h1 style ="color:yellow;text-align:center;">Currency - Real or Fake</h1>
         </div>
         """      
     st.markdown(html_temp, unsafe_allow_html = True)
 
 
-    with st.form("entry_form", clear_on_submit=True):
+    with st.form("entry_form", clear_on_submit=False):
         # the following lines create text boxes in which the user can enter 
         # the data required to make the prediction
-        variance = st.slider("Variance", -20, 20, 0)
-        skewness = st.slider("Skewness", -20, 20, 0)
-        curtosis = st.slider("Curtosis", -20, 20, 0)
-        entropy = st.slider("Entropy", -20, 20, 0)
+        variance = st.slider("Variance", -20.0, 20.0, 0.0, step=0.0001)
+        skewness = st.slider("Skewness", -20.0, 20.0, 0.0, step=0.0001)
+        curtosis = st.slider("Curtosis", -20.0, 20.0, 0.0, step=0.0001)
+        entropy = st.slider("Entropy", -20.0, 20.0, 0.0, step=0.0001)
         "---"
         submitted = st.form_submit_button("Predict")
         if submitted:
             #db.insert_period(variance,skewness,curtosis,entropy)
             result = prediction(variance,skewness,curtosis,entropy)
             if result == 0:
-                st.success('This is a Fake Currency')
+                st.warning('This is a Fake Currency!', icon="🚨")
+                
             elif result == 1:
-                st.success('This is a Real Currency')
+                st.success('This is a Real Currency!', icon="✅")
+                st.balloons()
 
 
 if selected == "History":
-    st.markdown("Database feature is under-development. Sorry for the inconvience.")
+    st.error("Database feature is currently unavailable. Sorry for the inconvience.")
